@@ -77,7 +77,7 @@ export NEURON_RT_STOCHASTIC_ROUNDING_EN=1
 #training_precision="fp32_ZeroOptMaster" #uses Zero1 for storing sharded master weights, optimizer states in FP32, model weights in bf16
 #training_precision="megatron_amp_O2" #master weights and optimizer states are stored in fp32, model weights in bf16
 #training_precision="fp32_OptStates" #optimizer states are stored in fp32, model weights in bf16
-#training_precision="fp32_ZeroOptMaster" #better performance than "fp32" 
+#training_precision="fp32_ZeroOptMaster" #better performance than "fp32"
 #training_precision="fp32" #The slowest but most accurate mode, where all computations use FP32
 training_precision="bf16SR"
 if [[ $training_precision == "bf16SR" ]];then
@@ -133,7 +133,9 @@ if [ "$COMPILE" = "1" ]; then
     echo "compiling only run"
     MAYBE_COMPILE="neuron_parallel_compile"
     export TRAIN_ITERS=4
+    export VALID_ITERS=4
+    export LIMIT_VAL_BATCHES=1
+    export GBS=4
     CREATE_TB_LOGGER=False
     CHECKPOINT_CALLBACK=False
 fi
-
