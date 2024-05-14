@@ -107,7 +107,9 @@ if [ "$COMPILE" = "1" ]; then
     echo "compiling only run"
     MAYBE_COMPILE="neuron_parallel_compile"
     export TRAIN_ITERS=3
+    export VALID_ITERS=3
+    export LIMIT_VAL_BATCHES=1
+    export GBS=4
     CREATE_TB_LOGGER=False
     CHECKPOINT_CALLBACK=False
 fi
-
